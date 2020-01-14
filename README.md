@@ -9,6 +9,7 @@
 scrape.py で
 - raceResultCsv: レース結果
 - refundCsv: 払い戻し
+
 という 2 つのディレクトリに csv を格納するので、ディレクトリを用意する
 ```
 mkdir raceResultCsv
