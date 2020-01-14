@@ -19,11 +19,10 @@ def scrapeRefund(tables):
             betType = lines[j].find("th").getText()
             cells = lines[j].select("td")
             if betType == "複勝" or betType == "ワイド":
-                n1, n2, n3 = cells[0].getText(".").split(".")
-                r1, r2, r3 = cells[1].getText(".").split(".")
-                csv2dArray.append([betType, n1, r1])
-                csv2dArray.append([betType, n2, r2])
-                csv2dArray.append([betType, n3, r3])
+                nArray = cells[0].getText(".").split(".")
+                rArray = cells[1].getText(".").split(".")
+                for k in range(len(nArray)):
+                    csv2dArray.append([betType, nArray[k], rArray[k]])
             else:
                 n = cells[0].getText()
                 r = cells[1].getText()
