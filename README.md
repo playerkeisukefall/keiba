@@ -6,13 +6,17 @@
 
 # 実行手順
 ## csv を格納するディレクトリを用意
-scrape.py で csvData というディレクトリに csv を格納することにしているので、用意する
+scrape.py で
+- raceResultCsv: レース結果
+- refundCsv: 払い戻し
+という 2 つのディレクトリに csv を格納するので、ディレクトリを用意する
 ```
-mkdir csvData
+mkdir raceResultCsv
+mkdir refundCsv
 ```
 
 ## スクレイピング
-https://db.netkeiba.com からレース情報から「着順, オッズ, 人気」をスクレイピングした csv を csvData ディレクトリに格納する
+https://db.netkeiba.com からレース情報からスクレイピングを行う
 ```
 python scrape.py
 ```
