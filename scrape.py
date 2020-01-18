@@ -13,12 +13,12 @@ BASE_URL = "https://db.netkeiba.com/race/"
 
 args = sys.argv
 
-def writeToCsv(csv2dArray, path):
+def writeToCsv(csvTable, path):
     with open(path, "w") as f:
-        csv.writer(f).writerows(csv2dArray)
+        csv.writer(f).writerows(csvTable)
 
 def scrapeRefund(tables):
-    csv2dArray = []
+    csvTable = []
     for i in range(len(tables)):
         lines = tables[i].select("tr")
         for j in range(len(lines)):
@@ -28,16 +28,16 @@ def scrapeRefund(tables):
                 nArray = cells[0].getText(".").split(".")
                 rArray = cells[1].getText(".").split(".")
                 for k in range(len(nArray)):
-                    csv2dArray.append([betType, nArray[k], rArray[k]])
+                    csvTable.append([betType, nArray[k], rArray[k]])
             else:
                 n = cells[0].getText()
                 r = cells[1].getText()
-                csv2dArray.append([betType, n, r])
-    return csv2dArray
+                csvTable.append([betType, n, r])
+    return csvTable
 
 
 def scrapeRaceResult(table):
-    csv2dArray = []
+    csvTable = []
     lines = table.select("tr")
     for i in range(len(lines)):
         if i != 0: # ヘッダーはパスする
@@ -48,8 +48,8 @@ def scrapeRaceResult(table):
             csvArray.append(cells[2].getText()) # 馬番
             csvArray.append(cells[12].getText()) # オッズ
             csvArray.append(cells[13].getText()) # 人気
-            csv2dArray.append(csvArray)
-    return csv2dArray
+            csvTable.append(csvArray)
+    return csvTable
 
 def main():
     session = requests.Session()
@@ -68,10 +68,10 @@ def main():
                     raceResultTable = soup.select("table[summary=\"レース結果\"]")
                     refundTables = soup.select("table[summary=\"払い戻し\"]")
                     if raceResultTable:
-                        raceResult2dArray = scrapeRaceResult(raceResultTable[0])
-                        refund2dArray = scrapeRefund(refundTables)
-                        writeToCsv(raceResult2dArray, RACE_RESULT_SAVE_DIR + raceId + ".csv")
-                        writeToCsv(refund2dArray, REFUND_SAVE_DIR + raceId + ".csv")
+                        raceResultTable = scrapeRaceResult(raceResultTable[0])
+                        refundTable = scrapeRefund(refundTables)
+                        writeToCsv(raceResultTable, RACE_RESULT_SAVE_DIR + raceId + ".csv")
+                        writeToCsv(refundTable, REFUND_SAVE_DIR + raceId + ".csv")
                         print("raceId: %s - ok" % raceId)
                     else:
                         print("raceId: %s - not exist" % raceId)
