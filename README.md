@@ -19,13 +19,16 @@ mkdir refundCsv
 ## スクレイピング
 https://db.netkeiba.com からレース情報からスクレイピングを行う
 ```
-python scrape.py
+python runScraping.py
 ```
 
-実行結果
+#### ●説明
+- 2008年 ~ 2019年のデータを年ごとに並列でスクレイピングする
+- 実際に動いているのは ```scrape.py``` で、```runScraping.py``` は並列でバックグラウンド実行させるスクリプト
+
+#### ●処理が終わったかどうか
 ```
-raceId: 200801010101 - ok
-raceId: 200801010102 - ok
-raceId: 200801010103 - ok
-　　　　　　：
+ps aux | grep scrape.py
 ```
+
+みたいな感じで適当にプロセスを確認して 11 個のプロセスが全部なくなっていたらスクレイピング終了
