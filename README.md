@@ -1,11 +1,11 @@
-# 【競馬】1番人気に賭け続けたら収益はどうなるのか
+# 【python】【競馬】結局、最強の賭け方はなんなのか？
 
 # 実行環境
 - MacOs Sierra 10.12.6
 - anaconda3-5.2.0（Python 3.6.5）
 
 # 実行手順
-## csv を格納するディレクトリを用意
+## 1. csv を格納するディレクトリを用意
 scrape.py で
 - raceResultCsv: レース結果
 - refundCsv: 払い戻し
@@ -16,7 +16,7 @@ mkdir raceResultCsv
 mkdir refundCsv
 ```
 
-## スクレイピング
+## 2. スクレイピング
 https://db.netkeiba.com からレース情報からスクレイピングを行う
 ```
 python runScraping.py
@@ -32,3 +32,17 @@ ps aux | grep scrape.py
 ```
 
 みたいな感じで適当にプロセスを確認して 11 個のプロセスが全部なくなっていたらスクレイピング終了
+
+## 3. シミュレーション
+全てのレース結果を使ってシミュレーションを行う
+```
+python simulate.py
+```
+
+#### ●出力
+```
+simulate now ... xxx / 37196 [race]
+```
+
+#### ●結果
+result.csv にシミュレーション結果が書き出される
